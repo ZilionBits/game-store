@@ -70,6 +70,13 @@ const theme = createTheme({
         },
       }),
     },
+    MuiToolbar:{
+      styleOverrides:{
+        root:{
+          justifyContent:'space-between',
+        }
+      }
+    }
   },
 });
 
@@ -77,7 +84,7 @@ const theme = createTheme({
 export const CustomTheme = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline /> {children}
+      <CssBaseline enableColorScheme/> {children}
     </ThemeProvider>
   );
 };
