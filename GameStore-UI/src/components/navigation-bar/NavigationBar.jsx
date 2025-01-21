@@ -3,11 +3,9 @@ import { Link, Outlet } from 'react-router';
 import DayNightSwitch from '../day-night-switch/DayNightSwitch';
 
 export const NavigationBar = () => {
-
-
   return (
     <>
-      <AppBar elevation={0} position="sticky" sx={{top:'0px'}}>
+      <AppBar position="sticky">
         <Toolbar>
           <Button component={Link} to="/signin">
             SiIn
@@ -18,7 +16,7 @@ export const NavigationBar = () => {
           <Button component={Link} to="/">
             Homepage
           </Button>
-          <DayNightSwitch/>
+          <DayNightSwitch />
         </Toolbar>
       </AppBar>
       <Outlet />

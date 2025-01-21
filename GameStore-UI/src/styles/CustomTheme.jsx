@@ -49,10 +49,11 @@ const theme = createTheme({
       },
     },
     MuiAppBar: {
-      styleOverrides: {
+      styleOverrides:{
         root: {
           boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-          backgroundColor: 'transparent',
+          '--AppBar-background': '#ffffff',
+          '--AppBar-color': '#000000',
         },
       },
     },
@@ -70,21 +71,20 @@ const theme = createTheme({
         },
       }),
     },
-    MuiToolbar:{
-      styleOverrides:{
-        root:{
-          justifyContent:'space-between',
-        }
-      }
-    }
+    MuiToolbar: {
+      styleOverrides: {
+        root: {
+          justifyContent: 'space-between',
+        },
+      },
+    },
   },
 });
-
 
 export const CustomTheme = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline enableColorScheme/> {children}
+      <CssBaseline enableColorScheme /> {children}
     </ThemeProvider>
   );
 };
