@@ -4,22 +4,26 @@ import DayNightSwitch from '../day-night-switch/DayNightSwitch';
 
 export const NavigationBar = () => {
   return (
-    <>
+    <div
+      style={{
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
       <AppBar position="sticky">
         <Toolbar>
-          <Button component={Link} to="/signin">
-            SiIn
-          </Button>
-          <Button component={Link} to="/signup">
-            SiUp
-          </Button>
+          <DayNightSwitch />
           <Button component={Link} to="/">
             Homepage
           </Button>
-          <DayNightSwitch />
+          <Button component={Link} to="/store">
+            Store
+          </Button>
         </Toolbar>
       </AppBar>
       <Outlet />
-    </>
+    </div>
   );
 };

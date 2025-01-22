@@ -5,7 +5,6 @@ export const SignCard = styled(Stack)(({ theme }) => ({
   width: '350px',
   height: '600px',
   margin: 'auto',
-  top: '10vh',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
