@@ -1,0 +1,118 @@
+[
+    {
+        "name": "Grand Theft Auto V",
+        "platforms": [
+            "PC",
+            "PlayStation",
+            "Xbox"
+        ],
+        "metascore": 92,
+        "image_url": "https://media.rawg.io/media/crop/600/400/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg",
+        "price": "27.99",
+        "genres": [
+            "Action",
+            "Adventure"
+        ]
+    },
+    {
+        "name": "Counter-Strike: Global Offensive",
+        "platforms": [
+            "PC",
+            "PlayStation",
+            "Xbox",
+            "Linux"
+        ],
+        "metascore": 81,
+        "image_url": "https://media.rawg.io/media/crop/600/400/games/736/73619bd336c894d6941d926bfd563946.jpg",
+        "price": "Free-to-play",
+        "genres": [
+            "Shooter",
+            "Multiplayer"
+        ]
+    },
+    {
+        "name": "Left 4 Dead 2",
+        "platforms": [
+            "PC",
+            "Xbox",
+            "Mac",
+            "Linux"
+        ],
+        "metascore": 89,
+        "image_url": "https://media.rawg.io/media/crop/600/400/games/d58/d588947d4286e7b5e0e12e1bea7d9844.jpg",
+        "price": "8.99",
+        "genres": [
+            "Action",
+            "Horror",
+            "Shooter"
+        ]
+    },
+    {
+        "name": "BioShock Infinite",
+        "platforms": [
+            "PC",
+            "PlayStation",
+            "Xbox",
+            "Linux",
+            "Nintendo"
+        ],
+        "metascore": 94,
+        "image_url": "https://media.rawg.io/media/crop/600/400/games/fc1/fc1307a2774506b5bd65d7e8424664a7.jpg",
+        "price": "17.99",
+        "genres": [
+            "Action",
+            "Adventure",
+            "Story-rich"
+        ]
+    },
+    {
+        "name": "Half-Life 2",
+        "platforms": [
+            "PC",
+            "Xbox",
+            "Android",
+            "Mac",
+            "Linux"
+        ],
+        "metascore": 96,
+        "image_url": "https://media.rawg.io/media/crop/600/400/games/b8c/b8c243eaa0fbac8115e0cdccac3f91dc.jpg",
+        "price": "8.99",
+        "genres": [
+            "Action",
+            "Sci-Fi",
+            "Shooter"
+        ]
+    },
+    {
+        "name": "PAYDAY 2",
+        "platforms": [
+            "PC",
+            "Xbox",
+            "Linux"
+        ],
+        "metascore": 79,
+        "image_url": "https://media.rawg.io/media/crop/600/400/games/73e/73eecb8909e0c39fb246f457b5d6cbbe.jpg",
+        "price": "4.49",
+        "genres": [
+            "Action",
+            "Co-op",
+            "Shooter"
+        ]
+    },
+    {
+        "name": "Team Fortress 2",
+        "platforms": [
+            "PC",
+            "Mac",
+            "Linux"
+        ],
+        "metascore": 92,
+        "image_url": "https://media.rawg.io/media/crop/600/400/games/46d/46d98e6910fbc0706e2948a7cc9b10c5.jpg",
+        "price": "Free-to-play",
+        "genres": [
+            "Shooter",
+            "Multiplayer",
+            "Cartoonish"
+        ]
+    }
+]

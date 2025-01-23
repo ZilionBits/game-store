@@ -1,4 +1,4 @@
-import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import { createTheme, CssBaseline, ThemeProvider, useTheme } from '@mui/material';
 
 const theme = createTheme({
   colorSchemes: {
@@ -49,7 +49,7 @@ const theme = createTheme({
       },
     },
     MuiAppBar: {
-      styleOverrides:{
+      styleOverrides: {
         root: {
           boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
           '--AppBar-background': '#ffffff',
@@ -75,6 +75,44 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           justifyContent: 'space-between',
+        },
+      },
+    },
+    MuiCardHeader: {
+      styleOverrides: {
+        avatar: {
+          margin: '8px',
+          padding: '3px',
+          border: '1px solid',
+          borderRadius: '50%',
+        },
+        title: {
+          fontSize: '1rem',
+        },
+        subheader: {
+          fontSize: '0.75rem',
+        },
+      },
+    },
+    MuiCardContent: {
+      styleOverrides: {
+        root: {
+          display: 'flex',
+          flexDirection: 'column',
+          height: '150px',
+          justifyContent: 'space-between',
+        },
+      },
+    },
+    MuiCardActions: {
+      styleOverrides: {
+        root: {
+          display: 'flex',
+          justifyContent: 'space-between',
+          '& .MuiButtonBase-root': {
+            fontSize: '0.75rem',
+            padding: '5px',
+          },
         },
       },
     },
