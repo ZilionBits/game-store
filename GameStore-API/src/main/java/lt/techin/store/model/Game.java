@@ -3,6 +3,7 @@ package lt.techin.store.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +19,7 @@ public class Game {
     private String name;
     private String imageUrl;
     private int metaScore;
-    private String price;
+    private BigDecimal price;
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Platform> platforms = new HashSet<>();
     @ManyToMany(fetch = FetchType.EAGER)
