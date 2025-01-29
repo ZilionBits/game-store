@@ -1,14 +1,13 @@
 package lt.techin.store.rest.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lt.techin.store.model.Game;
-import lt.techin.store.model.Genre;
 import lt.techin.store.model.Platform;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,6 +20,7 @@ public class GameDto {
     private String imageUrl;
     private int metaScore;
     private BigDecimal price;
+    @NotEmpty(message = "At least one platform must be provided.")
     private Set<Platform> platforms = new HashSet<>();
     private Set<GenreDto> genres = new HashSet<>();
 

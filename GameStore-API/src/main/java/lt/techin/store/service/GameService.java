@@ -30,7 +30,7 @@ public class GameService {
         return gameRepository.findById(id).get();
     }
 
-    public void addGame(GameDto gameDto) {
+    public GameDto addGame(GameDto gameDto) {
         Game newGame = new Game();
         newGame.setName(gameDto.getName());
         newGame.setImageUrl(gameDto.getImageUrl());
@@ -45,6 +45,8 @@ public class GameService {
         newGame.setGenres(genres);
 
         gameRepository.save(newGame);
+
+        return new GameDto(newGame);
     }
 
 
