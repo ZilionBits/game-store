@@ -8,7 +8,9 @@ import lt.techin.store.model.Platform;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -20,7 +22,7 @@ public class GameDto {
     private int metaScore;
     private BigDecimal price;
     private Set<Platform> platforms = new HashSet<>();
-    private Set<Genre> genres = new HashSet<>();
+    private Set<GenreDto> genres = new HashSet<>();
 
     public GameDto(Game game) {
         this.id = game.getId();
@@ -29,6 +31,6 @@ public class GameDto {
         this.metaScore = game.getMetaScore();
         this.price = game.getPrice();
         this.platforms.addAll(game.getPlatforms());
-        this.genres.addAll(game.getGenres());
+        this.genres = game.getGenres().stream().map(GenreDto::new).collect(Collectors.toSet());
     }
 }

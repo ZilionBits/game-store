@@ -23,10 +23,6 @@ public class GenreService {
         return genreRepository.findById(id).get();
     }
 
-    public Genre getGenreByName(String name) {
-        return genreRepository.findAll().stream().filter(g -> g.getName().equals(name)).findFirst().get();
-    }
-
     public Genre addGenre(String genre) {
         Genre newGenre = new Genre();
         newGenre.setName(genre);
