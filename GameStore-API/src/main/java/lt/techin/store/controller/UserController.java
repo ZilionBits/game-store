@@ -27,7 +27,8 @@ public class UserController {
 
     @PostMapping("/addNewUser")
     public String addNewUser(@RequestBody SignUpUserRequest signUpUserRequest) {
-        return userService.addUser(signUpRequest);
+
+        return userService.addUser(signUpUserRequest);
     }
 
     @PostMapping("/generateToken")
