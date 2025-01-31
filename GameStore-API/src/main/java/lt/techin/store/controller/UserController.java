@@ -25,13 +25,13 @@ public class UserController {
         return "Welcome from secured back end!";
     }
 
-    @PostMapping("/addNewUser")
+    @PostMapping("/signUp")
     public String addNewUser(@RequestBody SignUpUserRequest signUpUserRequest) {
 
         return userService.addUser(signUpUserRequest);
     }
 
-    @PostMapping("/generateToken")
+    @PostMapping("/signIn")
     public String generateToken(@RequestBody SignInUserRequest signInUserRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(signInUserRequest.getUsername(),signInUserRequest.getPassword()));

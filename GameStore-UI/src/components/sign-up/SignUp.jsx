@@ -2,6 +2,7 @@ import { Typography, InputLabel, Input, Button, Divider, FormHelperText, FormCon
 import { Link } from 'react-router';
 import { SignCard } from '../sign-card/SignCard';
 import { useState } from 'react';
+import UserAuth from '../authorization/UserAuth';
 
 export const SignUp = () => {
   const [signUpForm, setSignUpForm] = useState({
@@ -17,6 +18,7 @@ export const SignUp = () => {
     password: false,
     passwordErrorMessage: ' ',
   });
+  const { signUp } = UserAuth();
 
   const inputValidation = (key, value) => {
     let isValid = false;
@@ -50,10 +52,15 @@ export const SignUp = () => {
     setSignUpFormError((error) => ({ ...error, [key]: !inputValidation(key, value) }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (signUpForm.username.length < 3 || signUpForm.password.length < 6 || signUpFormError.email || signUpForm.email.length == 0) {
+    if (
+      signUpForm.username.length < 3 ||
+      signUpForm.password.length < 6 ||
+      signUpFormError.email ||
+      signUpForm.email.length == 0
+    ) {
       if (signUpForm.username.length < 3) {
         setSignUpFormError((error) => ({ ...error, usernameErrorMessage: 'Username must be at least 3 characters.' }));
       }
@@ -66,7 +73,9 @@ export const SignUp = () => {
       return;
     }
 
-    console.log(signUpForm);
+    const responseSignUp = await signUp(signUpForm);
+    console.log(responseSignUp);
+    
   };
 
   return (

@@ -1,6 +1,6 @@
 import { ProductCard } from './ProductCard';
 import { Container, Grid2 } from '@mui/material';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { GlobalContext } from '../global-context/AppContext';
 
 export const ProductListPage = () => {
@@ -15,7 +15,7 @@ export const ProductListPage = () => {
 
   return (
     <>
-      <h1>Store List</h1>
+      <h1>Store list</h1>
       <Container fixed>
         <Grid2 container spacing={2}>
           {gamesData.map((data) => (

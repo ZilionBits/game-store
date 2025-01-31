@@ -2,6 +2,7 @@ import { Typography, InputLabel, Input, Button, Divider, FormHelperText, FormCon
 import { Link } from 'react-router';
 import { SignCard } from '../sign-card/SignCard';
 import { useState } from 'react';
+import UserAuth from '../authorization/UserAuth';
 
 export const SignIn = () => {
   const [signInForm, setSignInForm] = useState({
@@ -14,10 +15,11 @@ export const SignIn = () => {
     password: false,
     passwordErrorMessage: ' ',
   });
+  const { signIn } = UserAuth();
 
   const inputValidation = (key, value) => {
     let isValid = false;
-    
+
     if (key === 'username') {
       isValid = value.length >= 3;
       if (isValid) {
@@ -40,7 +42,7 @@ export const SignIn = () => {
     setSignInFormError((error) => ({ ...error, [key]: !inputValidation(key, value) }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (signInForm.username.length < 3 || signInForm.password.length < 6) {
@@ -53,7 +55,10 @@ export const SignIn = () => {
       return;
     }
 
-    console.log(signInForm);
+    const responseSignIn = await signIn(signInForm);
+    console.log(responseSignIn);
+    
+    localStorage.setItem('token', responseSignIn.data);
   };
 
   return (
@@ -86,7 +91,7 @@ export const SignIn = () => {
           />
           <FormHelperText error={signInFormError.password}>{signInFormError.passwordErrorMessage}</FormHelperText>
         </FormControl>
-        <Button variant='outlined' onClick={handleSubmit} type="submit">
+        <Button variant="outlined" onClick={handleSubmit} type="submit">
           Sign In
         </Button>
       </form>

@@ -31,12 +31,17 @@ public class UserService implements UserDetailsService {
     }
 
     public String addUser(SignUpUserRequest request) {
+        String roles = "ROLE_USER";
+        if (request.getRoles() != null) {
+            roles = request.getRoles();
+        }
+
         request.setPassword(passwordEncoder.encode(request.getPassword()));
         User user = new User();
         user.setUsername(request.getUsername());
         user.setPassword(request.getPassword());
         user.setEmail(request.getEmail());
-        user.setRoles(request.getRoles());
+        user.setRoles(roles);
         userRepository.save(user);
         return "User added successfully: " + request.getUsername();
     }

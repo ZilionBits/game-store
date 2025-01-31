@@ -10,5 +10,4 @@ public class SignUpUserRequest {
     private String email;
     private String roles;
 
-
 }
