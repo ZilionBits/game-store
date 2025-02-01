@@ -1,7 +1,6 @@
 package lt.techin.store.service;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+
 import lt.techin.store.model.User;
 import lt.techin.store.repository.UserRepository;
 import lt.techin.store.rest.SignUpUserRequest;
@@ -26,6 +25,7 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByUsername(username);
 
+
         return user.map(UserDetailsImpl::new)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
     }
@@ -35,14 +35,15 @@ public class UserService implements UserDetailsService {
         if (request.getRoles() != null) {
             roles = request.getRoles();
         }
-
         request.setPassword(passwordEncoder.encode(request.getPassword()));
+
         User user = new User();
         user.setUsername(request.getUsername());
         user.setPassword(request.getPassword());
         user.setEmail(request.getEmail());
         user.setRoles(roles);
         userRepository.save(user);
+
         return "User added successfully: " + request.getUsername();
     }
 

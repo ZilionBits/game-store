@@ -5,11 +5,15 @@ import lt.techin.store.rest.SignInUserRequest;
 import lt.techin.store.rest.SignUpUserRequest;
 import lt.techin.store.service.JwtService;
 import lt.techin.store.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
 
 @AllArgsConstructor
 @RestController
@@ -32,13 +36,15 @@ public class UserController {
     }
 
     @PostMapping("/signIn")
-    public String generateToken(@RequestBody SignInUserRequest signInUserRequest) {
-        Authentication authentication = authenticationManager.authenticate(
+    public ResponseEntity<Map<String, String>> generateToken(@RequestBody SignInUserRequest signInUserRequest) {
+        try {
+            authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(signInUserRequest.getUsername(),signInUserRequest.getPassword()));
-        if(authentication.isAuthenticated()) {
-            return jwtService.generateToken(signInUserRequest.getUsername());
-        } else {
-            throw new UsernameNotFoundException("Invalid username or password");
+
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(Map.of("token",jwtService.generateToken(signInUserRequest.getUsername())));
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error","Invalid username or password"));
         }
     }
 

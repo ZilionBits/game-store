@@ -20,7 +20,6 @@ const UserAuth = () => {
   const signIn = async (signInForm) => {
     const response = await authAxios.post('/signIn', signInForm);
     setToken(response.data);
-    console.log(token);
     return response;
   };
 

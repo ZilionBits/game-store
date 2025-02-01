@@ -55,10 +55,17 @@ export const SignIn = () => {
       return;
     }
 
-    const responseSignIn = await signIn(signInForm);
-    console.log(responseSignIn);
-    
-    localStorage.setItem('token', responseSignIn.data);
+    const performSignIn = async () => {
+      await signIn(signInForm)
+        .then((response) => {
+          localStorage.setItem('token', response.data.token);
+        })
+        .catch((error) => {
+          console.error(error.response);
+        });
+    };
+
+    performSignIn();
   };
 
   return (

@@ -7,7 +7,7 @@ import AppContext from './components/global-context/AppContext.jsx';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AppContext>
-      <CustomTheme disableTransitionOnChange noSsr>
+      <CustomTheme noSsr>
         <App />
       </CustomTheme>
     </AppContext>
