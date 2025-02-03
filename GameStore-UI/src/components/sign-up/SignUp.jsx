@@ -2,7 +2,7 @@ import { Typography, InputLabel, Input, Button, Divider, FormHelperText, FormCon
 import { Link } from 'react-router';
 import { SignCard } from '../sign-card/SignCard';
 import { useState } from 'react';
-import UserAuth from '../authorization/UserAuth';
+import { useUserAuth } from '../authorization/UserAuth';
 
 export const SignUp = () => {
   const [signUpForm, setSignUpForm] = useState({
@@ -18,7 +18,7 @@ export const SignUp = () => {
     password: false,
     passwordErrorMessage: ' ',
   });
-  const { signUp } = UserAuth();
+  const { signUp } = useUserAuth();
 
   const inputValidation = (key, value) => {
     let isValid = false;

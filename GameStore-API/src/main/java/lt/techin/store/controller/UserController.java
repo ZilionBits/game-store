@@ -42,7 +42,7 @@ public class UserController {
                 new UsernamePasswordAuthenticationToken(signInUserRequest.getUsername(),signInUserRequest.getPassword()));
 
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(Map.of("token",jwtService.generateToken(signInUserRequest.getUsername())));
+                    .body(Map.of("token",jwtService.generateToken(signInUserRequest)));
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error","Invalid username or password"));
         }

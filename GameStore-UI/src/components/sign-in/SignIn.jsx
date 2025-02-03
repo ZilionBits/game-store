@@ -2,7 +2,7 @@ import { Typography, InputLabel, Input, Button, Divider, FormHelperText, FormCon
 import { Link } from 'react-router';
 import { SignCard } from '../sign-card/SignCard';
 import { useState } from 'react';
-import UserAuth from '../authorization/UserAuth';
+import { useUserAuth } from '../authorization/UserAuth';
 
 export const SignIn = () => {
   const [signInForm, setSignInForm] = useState({
@@ -15,7 +15,7 @@ export const SignIn = () => {
     password: false,
     passwordErrorMessage: ' ',
   });
-  const { signIn } = UserAuth();
+  const { signIn } = useUserAuth();
 
   const inputValidation = (key, value) => {
     let isValid = false;
@@ -55,17 +55,10 @@ export const SignIn = () => {
       return;
     }
 
-    const performSignIn = async () => {
-      await signIn(signInForm)
-        .then((response) => {
-          localStorage.setItem('token', response.data.token);
-        })
-        .catch((error) => {
-          console.error(error.response);
-        });
-    };
+    signIn(signInForm).catch((error) => {
+      console.error(error.response);
+    });
 
-    performSignIn();
   };
 
   return (

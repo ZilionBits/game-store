@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lt.techin.store.rest.SignInUserRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -18,15 +19,18 @@ public class JwtService {
 
     public static final String SECRET_KEY = "e0ba853913752f1f6a65a24f6303e16f24fa77e6006854317994670202a245587926a75b631a5067ff1e05a226c0561809380936b48ff849d0200312ef675e63c92c988560c6629a1d4023a813ba43c215de69247af140abd1fe87761c513917fe5d8236af97335432e40c3ab24231af11dee555b4bb53f149be1ac37a98c9fa767d3107b047c8f29c28d9ea9ddf92f1ac7a91ee2b7fc457e2d3a8ae4ae7ff20377c18762057acbc1dbf0e8fcdc52bcaef2bcfa65729a8436e9c49e04d76371f8879250e5ea7af4f806a64e90dad53f29313ea1d67427e7e8afb0bb5a253bfeddd7d063dc7c03d230a1c71dfcad52c2bc6debbd64250295dda7ca68a1b5e6bc9";
 
-    public String generateToken(String username) {
-        Map<String, Object> claims = new HashMap<>();
-        return createToken(claims,username);
+    public String generateToken(SignInUserRequest signInUserRequest) {
+        Map<String, String> claims = new HashMap<>();
+        claims.put("username", signInUserRequest.getUsername());
+        claims.put("password", signInUserRequest.getPassword());
+        claims.put("roles", "ADMIN");
+        return createToken(claims);
     }
 
-    private String createToken(Map<String, Object> claims, String username) {
+    private String createToken(Map<String, String> claims) {
         return Jwts.builder()
                 .claims(claims)
-                .subject(username)
+                .subject("JWT Token")
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
                 .signWith(getSignKey())
