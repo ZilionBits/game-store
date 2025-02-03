@@ -2,6 +2,7 @@ import { Badge, Menu, MenuItem, styled } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
 import { useState } from 'react';
 import { useUserAuth } from '../authorization/UserAuth';
+import { Link } from 'react-router';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -68,8 +69,9 @@ export const ControlAvatar = () => {
         disableScrollLock
         disableEnforceFocus
         disableAutoFocusItem
+        aria-hidden={true}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem component={Link} to={'/profile'} onClick={handleClose}>Profile</MenuItem>
         <MenuItem divider onClick={handleClose}>
           Settings
         </MenuItem>

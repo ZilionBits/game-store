@@ -1,5 +1,6 @@
 import { Stack, Typography, Button, styled, keyframes, Divider } from '@mui/material';
 import { Link, Router } from 'react-router';
+import { useUserAuth } from '../authorization/UserAuth';
 
 const pulseGlowOuter = keyframes`
       0% {
@@ -27,6 +28,8 @@ const GlowButton = styled(Button)({
 });
 
 export const Homepage = () => {
+  const { user } = useUserAuth();
+
   return (
     <Stack
       divider={<Divider flexItem sx={{ width: '75%', margin: '24px auto' }}></Divider>}
@@ -55,12 +58,16 @@ export const Homepage = () => {
       <GlowButton component={Link} to="/store" variant="outlined">
         Explore!
       </GlowButton>
-      <GlowButton component={Link} to="/signin" variant="outlined">
-        Sign In
-      </GlowButton>
-      <GlowButton component={Link} to="/signup" variant="outlined">
-        Sign Up
-      </GlowButton>
+      {!user && (
+        <GlowButton component={Link} to="/signin" variant="outlined">
+          Sign In
+        </GlowButton>
+      )}
+      {!user && (
+        <GlowButton component={Link} to="/signup" variant="outlined">
+          Sign Up
+        </GlowButton>
+      )}
     </Stack>
   );
 };
