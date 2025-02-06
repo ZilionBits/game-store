@@ -12,7 +12,7 @@ import {
 import { Link } from 'react-router';
 
 export const ProductCard = (props) => {
-  const { name, platforms, metascore, image_url, price, genres } = props;
+  const { name, platforms, metascore, image_url, price, genres, addToBasket } = props;
 
   return (
     <Card sx={{ width: '250px' }}>
@@ -29,7 +29,7 @@ export const ProductCard = (props) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button>Add to cart</Button>
+        <Button onClick={addToBasket}>Add to basket</Button>
         <Button component={Link}>Buy now</Button>
       </CardActions>
     </Card>

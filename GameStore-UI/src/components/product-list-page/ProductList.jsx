@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { GlobalContext } from '../global-context/AppContext';
 
 export const ProductListPage = () => {
-  const { gamesData, isLoading, isError } = useContext(GlobalContext);
+  const { gamesData, isLoading, isError, addToBasket } = useContext(GlobalContext);
 
   if (isLoading || isError) {
     if (isLoading) {
@@ -31,6 +31,7 @@ export const ProductListPage = () => {
                 image_url={data.imageUrl}
                 price={data.price}
                 genres={data.genres.map((genre) => genre.name).join(' ')}
+                addToBasket={() => addToBasket(data.id)}
               />
             </Grid2>
           ))}

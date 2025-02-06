@@ -1,6 +1,5 @@
 import { AppBar, Button, Toolbar, Stack } from '@mui/material';
 import { Link, Outlet } from 'react-router';
-import DayNightSwitch from '../day-night-switch/DayNightSwitch';
 import { ControlAvatar } from '../control-avatar/ControlAvatar';
 import { ControlCart } from '../control-avatar/ControlCart';
 import { Home, Store } from '@mui/icons-material';
@@ -17,8 +16,7 @@ export const NavigationBar = () => {
     >
       <AppBar position="sticky">
         <Toolbar>
-          <DayNightSwitch />
-          <Stack direction="row" alignItems="end">
+          <Stack direction="row">
             <Button component={Link} to="/">
               <Home fontSize="large" />
             </Button>
@@ -26,7 +24,7 @@ export const NavigationBar = () => {
               <Store fontSize="large" />
             </Button>
           </Stack>
-          <Stack direction="row" spacing={2} alignItems="end">
+          <Stack direction="row">
             <ControlCart />
             <ControlAvatar />
           </Stack>

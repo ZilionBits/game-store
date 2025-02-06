@@ -42,16 +42,30 @@ export const UserAuth = ({ children }) => {
   };
 
   const isTokenExpired = () => {
-    if (user === null) {
-      return true;
-    }
-    if (user.exp * 1000 < Date.now()) {
-      console.log(user.exp + ' ' + Date.now());
-      logOut();
-      return true;
+    if (user !== null) {
+      if (user.exp * 1000 < Date.now()) {
+        return true;
+      }
     }
     return false;
   };
+
+  useEffect(() => {
+    if (user !== null) {
+      const isExpired = isTokenExpired();
+      const msTillTokenExpire = user.exp * 1000 - Date.now();
+      if (isExpired) {
+        console.log(isExpired + 'logging out');
+        logOut();
+      } else {
+        setTimeout(() => {
+          logOut();
+          console.log('tokenExpired, please sign in again.');
+        }, msTillTokenExpire);
+      }
+      console.log(msTillTokenExpire);
+    }
+  }, [user]);
 
   useEffect(() => {
     setToken(localStorage.getItem('token'));
@@ -59,7 +73,9 @@ export const UserAuth = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ token, user, signIn, signUp, logOut, isTokenExpired }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ token, user, signIn, signUp, logOut, isTokenExpired }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

@@ -9,6 +9,8 @@ const AppContext = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [gamesData, setGamesData] = useState([]);
+  const [basketItems, setBasketItems] = useState(new Set());
+  const [itemsCount, setItemsCount] = useState(0);
 
   useEffect(() => {
     let cancel = false;
@@ -32,7 +34,34 @@ const AppContext = ({ children }) => {
     };
   }, []);
 
-  const globalData = { gamesData, isLoading, isError };
+  useEffect(() => {
+    let count = basketItems.size;
+    setItemsCount(count);
+  }, [basketItems]);
+  
+  const addToBasket = (id) => {
+    const item = gamesData.find((game) => game.id === id);
+    if (!item) {
+      return;
+    }
+    setBasketItems((bsk) => new Set(bsk).add(item));
+  };
+  
+
+  const removeBasketItem = (id) => {
+    setBasketItems((bsk) => {
+      const newSet = new Set(bsk);
+      const itemToRemove = [...newSet].find((item) => item.id === id);
+
+      if (itemToRemove) {
+        newSet.delete(itemToRemove);
+      }
+
+      return newSet;
+    });
+  };
+
+  const globalData = { itemsCount, addToBasket, basketItems, removeBasketItem, gamesData, isLoading, isError };
 
   return <GlobalContext.Provider value={globalData}>{children}</GlobalContext.Provider>;
 };

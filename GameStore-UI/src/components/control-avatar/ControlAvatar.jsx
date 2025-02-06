@@ -1,8 +1,9 @@
-import { Badge, Menu, MenuItem, styled } from '@mui/material';
+import { Badge, Menu, MenuItem, styled, Button } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
 import { useState } from 'react';
 import { useUserAuth } from '../authorization/UserAuth';
-import { Link } from 'react-router';
+import { useNavigate } from 'react-router';
+import DayNightSwitch from '../day-night-switch/DayNightSwitch';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -38,47 +39,65 @@ export const ControlAvatar = () => {
   const open = Boolean(anchorEl);
 
   const { logOut, user } = useUserAuth();
+  const navigate = useNavigate();
 
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = (e) => {
     setAnchorEl(null);
+    const route = e?.target.id;
+    if (route === 'profile' || route === 'settings') {
+      navigate(`${route}`);
+    }
   };
 
   return (
     <>
-      <StyledBadge
-        overlap="circular"
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        variant="dot"
+      <Button
+        id="avatar-button"
+        aria-controls={open ? 'avatar-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
-        sx={{
-          '& .MuiBadge-badge': {
-            backgroundColor: `${user ? '#44b700' : '#B22222'}`,
-            color: `${user ? '#44b700' : '#B22222'}`,
-          },
-        }}
       >
-        <AccountCircle color="primary" sx={{ height: '30px', width: '30px' }} />
-      </StyledBadge>
+        <StyledBadge
+          overlap="circular"
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          variant="dot"
+          sx={{
+            '& .MuiBadge-badge': {
+              backgroundColor: `${user ? '#44b700' : '#B22222'}`,
+              color: `${user ? '#44b700' : '#B22222'}`,
+            },
+          }}
+        >
+          <AccountCircle color="primary" sx={{ height: '30px', width: '30px' }} />
+        </StyledBadge>
+      </Button>
       <Menu
+        id="avatar-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        disableScrollLock
-        disableEnforceFocus
-        disableAutoFocusItem
-        aria-hidden={true}
+        MenuListProps={{
+          'aria-labelledby': 'avatar-button',
+        }}
       >
-        <MenuItem component={Link} to={'/profile'} onClick={handleClose}>Profile</MenuItem>
-        <MenuItem divider onClick={handleClose}>
+        <MenuItem id="profile" onClick={handleClose}>
+          Profile
+        </MenuItem>
+        <MenuItem id="settings" divider onClick={handleClose}>
           Settings
         </MenuItem>
+        <MenuItem divider>
+          <DayNightSwitch />
+        </MenuItem>
         <MenuItem
+          id="logout"
           onClick={() => {
-            logOut();
             handleClose();
+            logOut();
           }}
         >
           Log out
