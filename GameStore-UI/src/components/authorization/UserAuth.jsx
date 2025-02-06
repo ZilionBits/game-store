@@ -15,6 +15,7 @@ const AuthContext = createContext();
 export const UserAuth = ({ children }) => {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
+  const [adminMessage, setAdminMessage] = useState();
 
   const signUp = async (signUpForm) => {
     const response = await authAxios.post('/signUp', signUpForm);
@@ -27,12 +28,34 @@ export const UserAuth = ({ children }) => {
     setToken(token);
     localStorage.setItem('token', token);
 
-    const decodedUser = jwtDecode(token);
-    setUser(decodedUser);
-    localStorage.setItem('user', JSON.stringify(decodedUser));
+    setUserInfo(token);
 
     return response;
   };
+
+  const setUserInfo = (token) => {
+    const decodedUser = jwtDecode(token);
+    const userInfo = {
+      ...decodedUser,
+      roles: decodedUser.roles === '[ROLE_ADMIN]' ? 'ADMIN' : 'USER',
+    };
+    setUser(userInfo);
+    localStorage.setItem('user', JSON.stringify(userInfo));
+  };
+
+  useEffect(() => {
+    if (!token) return;
+    const adminCheck = async () => {
+      const response = await authAxios('/welcome', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const message = response.data;
+      setAdminMessage(message);
+    };
+    adminCheck();
+  }, [token]);
 
   const logOut = () => {
     localStorage.removeItem('user');
@@ -63,7 +86,6 @@ export const UserAuth = ({ children }) => {
           console.log('tokenExpired, please sign in again.');
         }, msTillTokenExpire);
       }
-      console.log(msTillTokenExpire);
     }
   }, [user]);
 
@@ -73,7 +95,7 @@ export const UserAuth = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ token, user, signIn, signUp, logOut, isTokenExpired }}>
+    <AuthContext.Provider value={{ adminMessage, token, user, signIn, signUp, logOut, isTokenExpired, setUserInfo }}>
       {children}
     </AuthContext.Provider>
   );

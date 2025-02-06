@@ -98,6 +98,7 @@ export const ControlAvatar = () => {
           onClick={() => {
             handleClose();
             logOut();
+            navigate('/');
           }}
         >
           Log out

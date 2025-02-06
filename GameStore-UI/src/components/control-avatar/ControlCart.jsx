@@ -3,6 +3,7 @@ import { ShoppingCart } from '@mui/icons-material';
 import { useContext, useState } from 'react';
 import { ModalContentCard } from './ModalContentCard';
 import { GlobalContext } from '../global-context/AppContext';
+import { EmptyBasket } from './EmptyBasket';
 
 const style = {
   position: 'absolute',
@@ -23,7 +24,6 @@ export const ControlCart = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const { itemsCount } = useContext(GlobalContext);
-
 
   return (
     <>
@@ -56,11 +56,11 @@ export const ControlCart = () => {
             Your selected items:
           </Typography>
           <Stack id="modal-modal-description" sx={{ mt: 2, border: '1px solid', padding: 1 }}>
-            <ModalContentCard />
+            {itemsCount === 0 ? <EmptyBasket /> : <ModalContentCard />}
           </Stack>
           <Stack direction="row" justifyContent="space-between">
-            <Button onClick={handleClose}>Continue shopping</Button>
-            <Button onClick={handleClose}>Buy</Button>
+            <Button onClick={handleClose}>Continue browsing</Button>
+            {itemsCount > 0 && <Button onClick={handleClose}>Buy</Button>}
           </Stack>
         </Box>
       </Modal>

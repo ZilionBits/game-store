@@ -1,5 +1,5 @@
 import { Typography, InputLabel, Input, Button, Divider, FormHelperText, FormControl } from '@mui/material';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { SignCard } from '../sign-card/SignCard';
 import { useState } from 'react';
 import { useUserAuth } from '../authorization/UserAuth';
@@ -16,6 +16,7 @@ export const SignIn = () => {
     passwordErrorMessage: ' ',
   });
   const { signIn } = useUserAuth();
+  const navigate = useNavigate();
 
   const inputValidation = (key, value) => {
     let isValid = false;
@@ -55,10 +56,11 @@ export const SignIn = () => {
       return;
     }
 
-    signIn(signInForm).catch((error) => {
-      console.error(error.response);
-    });
-
+    signIn(signInForm)
+      .then(navigate('/store'))
+      .catch((error) => {
+        console.error(error.response);
+      });
   };
 
   return (

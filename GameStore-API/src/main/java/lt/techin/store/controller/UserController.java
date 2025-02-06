@@ -1,9 +1,11 @@
 package lt.techin.store.controller;
 
 import lombok.AllArgsConstructor;
+import lt.techin.store.model.User;
 import lt.techin.store.rest.SignInUserRequest;
 import lt.techin.store.rest.SignUpUserRequest;
 import lt.techin.store.service.JwtService;
+import lt.techin.store.service.UserDetailsImpl;
 import lt.techin.store.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,13 +28,13 @@ public class UserController {
 
     @GetMapping("/welcome")
     public String welcome() {
-        return "Welcome from secured back end!";
+        return "Welcome from secured Admin only back end page!";
     }
 
     @PostMapping("/signUp")
-    public String addNewUser(@RequestBody SignUpUserRequest signUpUserRequest) {
-
-        return userService.addUser(signUpUserRequest);
+    public ResponseEntity<Map<String, String>> addNewUser(@RequestBody SignUpUserRequest signUpUserRequest) {
+        String message = userService.addUser(signUpUserRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message", message));
     }
 
     @PostMapping("/signIn")
@@ -41,8 +43,10 @@ public class UserController {
             authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(signInUserRequest.getUsername(),signInUserRequest.getPassword()));
 
+            UserDetailsImpl user = (UserDetailsImpl) userService.loadUserByUsername(signInUserRequest.getUsername());
+
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(Map.of("token",jwtService.generateToken(signInUserRequest)));
+                    .body(Map.of("token",jwtService.generateToken(user)));
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error","Invalid username or password"));
         }

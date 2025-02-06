@@ -61,7 +61,7 @@ const AppContext = ({ children }) => {
     });
   };
 
-  const globalData = { itemsCount, addToBasket, basketItems, removeBasketItem, gamesData, isLoading, isError };
+  const globalData = { itemsCount, addToBasket, setBasketItems, basketItems, removeBasketItem, gamesData, isLoading, isError };
 
   return <GlobalContext.Provider value={globalData}>{children}</GlobalContext.Provider>;
 };
