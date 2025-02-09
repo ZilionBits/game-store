@@ -1,57 +1,66 @@
-# 🎮 Game Store
+Game Store Application
+Welcome to the Game Store Application! This is a web-based platform built using Spring Boot and React that allows users to browse and purchase games. It also includes an admin panel for managing games, users, and orders.
 
-Game Store is a full-stack web application that allows users to browse, search, and purchase video games. The project is divided into two main parts:
+Features
+User Features
+Browse Games:
 
-- **GameStore-API** – The backend, built using Java Spring Boot, which provides a secure REST API.
-- **GameStore-UI** – The frontend, developed with React, offering a user-friendly shopping experience.
+View a list of available games with details like title, description, price, and genre.
 
----
+User Authentication:
 
-## 🏗 Technologies Used
+Register and log in to the platform.
 
-### 📌 **Frontend**
+Shopping Cart:
 
-- React.js (with hooks)
-- React Router for navigation
-- Material-UI for styling
-- Axios for API requests
+Add games to the cart and proceed to checkout.
 
-### ⚙ **Backend**
+User profile:
 
-- Java Spring Boot (REST API)
-- Spring Security & JWT (Authentication)
-- H2 (Database)
-- Lombok (Simplified Java code)
+Check information parsed from JWT token, session beggining time and end time.
 
-### 🛠 **Dev Tools**
+Admin Features
+Game Management:
 
-- Git & GitHub (for version control)
-- Postman (API testing)
-- ESLint & Prettier (code formatting)
+Add, update, or delete games from the store.
 
----
+User Management:
 
-## 🛠 Installation & Setup
+View and manage user accounts.
 
-1. 🔹 Clone the repository:
+Order Management:
 
-   ```bash
-   git clone https://github.com/ZilionBits/game-store.git
-   cd game-store/GameStore-API
-   ./mvnw clean install
-   ./mvnw spring-boot:run
+View and manage all orders placed on the platform.
 
-   ```
+Technologies Used
+Backend: Spring Boot, Spring Data JPA, Spring Security, JWT Token, Lombok
 
-2. 🔹 Frontend Setup
-   Navigate to the frontend folder:
+Frontend: React, HTML, CSS, Material UI
 
-cd ../GameStore-UI
+Database: H2
 
-Install dependencies:
+Build Tool: Maven
 
-npm install
+Steps to Run the Application
+Clone the Repository:
 
-Start the development server:
+git clone https://github.com/ZilionBits/game-store.git
+cd game-store
 
-npm run dev
+Build the Project:
+
+mvn clean install
+
+Run the Application:
+
+mvn spring-boot:run
+
+Access the Application:
+
+Open your browser and go to http://localhost:5173.
+
+Use the following credentials to log in:
+
+Admin: admin / 123456
+
+User: user / 123456
