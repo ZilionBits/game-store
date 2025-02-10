@@ -4,7 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 
 const authAxios = axios.create({
   baseURL: 'https://game-store-api-h91p.onrender.com/auth',
-  timeout: 1000,
+  timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
   },
