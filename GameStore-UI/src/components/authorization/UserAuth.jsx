@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
 
 const authAxios = axios.create({
-  baseURL: 'http://localhost:8080/auth',
+  baseURL: 'https://game-store-api-h91p.onrender.com/auth',
   timeout: 1000,
   headers: {
     'Content-Type': 'application/json',

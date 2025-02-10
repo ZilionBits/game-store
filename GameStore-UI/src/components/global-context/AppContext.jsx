@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
-const GAMESAPI = 'http://localhost:8080/api/v1';
+const GAMESAPI = 'https://game-store-api-h91p.onrender.com/api/v1';
 
 export const GlobalContext = createContext();
 
