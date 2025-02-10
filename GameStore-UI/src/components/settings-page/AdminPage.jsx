@@ -7,6 +7,7 @@ export const AdminPage = () => {
   return (
     <CardContent>
       <Typography>{adminMessage}</Typography>
+      
     </CardContent>
   );
 };

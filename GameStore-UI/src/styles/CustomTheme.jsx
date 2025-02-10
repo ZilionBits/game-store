@@ -99,7 +99,6 @@ const theme = createTheme({
         root: {
           display: 'flex',
           flexDirection: 'column',
-          height: '150px',
           justifyContent: 'space-between',
         },
       },

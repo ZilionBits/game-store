@@ -93,16 +93,28 @@ export const ControlAvatar = () => {
         <MenuItem divider>
           <DayNightSwitch />
         </MenuItem>
-        <MenuItem
-          id="logout"
-          onClick={() => {
-            handleClose();
-            logOut();
-            navigate('/');
-          }}
-        >
-          Log out
-        </MenuItem>
+        {user ? (
+          <MenuItem
+            id="logout"
+            onClick={() => {
+              handleClose();
+              logOut();
+              navigate('/');
+            }}
+          >
+            Log out
+          </MenuItem>
+        ) : (
+          <MenuItem
+            id="login"
+            onClick={() => {
+              handleClose();
+              navigate('signin');
+            }}
+          >
+            Log in
+          </MenuItem>
+        )}
       </Menu>
     </>
   );

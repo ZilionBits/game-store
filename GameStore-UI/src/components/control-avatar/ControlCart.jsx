@@ -4,15 +4,14 @@ import { useContext, useState } from 'react';
 import { ModalContentCard } from './ModalContentCard';
 import { GlobalContext } from '../global-context/AppContext';
 import { EmptyBasket } from './EmptyBasket';
+import { BuyClick } from '../buy-click/BuyClick';
+import { useUserAuth } from '../authorization/UserAuth';
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
+  margin: '10vh auto',
   width: '90vw',
   minWidth: '380px',
   maxWidth: '800px',
-  transform: 'translate(-50%, -50%)',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -23,7 +22,26 @@ export const ControlCart = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { itemsCount } = useContext(GlobalContext);
+  const { itemsCount, setBasketItems } = useContext(GlobalContext);
+  const { user } = useUserAuth();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleBuyClick = (event) => {
+    setAnchorEl(event.currentTarget);
+    {
+      user &&
+        setTimeout(() => {
+          handleBuyClose();
+          handleClose();
+          setBasketItems(new Set());
+        }, 2000);
+    }
+  };
+
+  const handleBuyClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <>
@@ -60,8 +78,9 @@ export const ControlCart = () => {
           </Stack>
           <Stack direction="row" justifyContent="space-between">
             <Button onClick={handleClose}>Continue browsing</Button>
-            {itemsCount > 0 && <Button onClick={handleClose}>Buy</Button>}
+            {itemsCount > 0 && <Button onClick={handleBuyClick}>Buy</Button>}
           </Stack>
+          <BuyClick anchorEl={anchorEl} handleClose={handleBuyClose} />
         </Box>
       </Modal>
     </>

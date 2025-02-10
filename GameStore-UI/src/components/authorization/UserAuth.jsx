@@ -8,7 +8,7 @@ const AUTHAPI = 'https://game-store-api-h91p.onrender.com/auth';
 
 const authAxios = axios.create({
   baseURL: `${AUTHAPI}`,
-  timeout: 5000,
+  timeout: 60000,
   headers: {
     'Content-Type': 'application/json',
   },
