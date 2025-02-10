@@ -17,7 +17,7 @@ export const ProductListPage = () => {
     <>
       <h1>Store list</h1>
       <Container fixed>
-        <Grid2 container spacing={2}>
+        <Grid2 container spacing={3}>
           {gamesData.map((data) => (
             <Grid2
               key={data.name}

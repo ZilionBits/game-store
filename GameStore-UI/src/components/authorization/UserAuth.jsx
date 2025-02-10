@@ -2,8 +2,12 @@ import axios from 'axios';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
 
+const AUTHAPI = 'https://game-store-api-h91p.onrender.com/auth';
+
+// const AUTHAPI = 'http://localhost:8080/auth';
+
 const authAxios = axios.create({
-  baseURL: 'https://game-store-api-h91p.onrender.com/auth',
+  baseURL: `${AUTHAPI}`,
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',

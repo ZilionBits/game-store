@@ -1,6 +1,8 @@
 import { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
+// const GAMESAPI = 'http://localhost:8080/api/v1';
+
 const GAMESAPI = 'https://game-store-api-h91p.onrender.com/api/v1';
 
 export const GlobalContext = createContext();
@@ -38,7 +40,7 @@ const AppContext = ({ children }) => {
     let count = basketItems.size;
     setItemsCount(count);
   }, [basketItems]);
-  
+
   const addToBasket = (id) => {
     const item = gamesData.find((game) => game.id === id);
     if (!item) {
@@ -46,7 +48,6 @@ const AppContext = ({ children }) => {
     }
     setBasketItems((bsk) => new Set(bsk).add(item));
   };
-  
 
   const removeBasketItem = (id) => {
     setBasketItems((bsk) => {
@@ -61,7 +62,16 @@ const AppContext = ({ children }) => {
     });
   };
 
-  const globalData = { itemsCount, addToBasket, setBasketItems, basketItems, removeBasketItem, gamesData, isLoading, isError };
+  const globalData = {
+    itemsCount,
+    addToBasket,
+    setBasketItems,
+    basketItems,
+    removeBasketItem,
+    gamesData,
+    isLoading,
+    isError,
+  };
 
   return <GlobalContext.Provider value={globalData}>{children}</GlobalContext.Provider>;
 };
