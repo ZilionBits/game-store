@@ -29,8 +29,15 @@ public class GenreService {
         return genreRepository.save(newGenre);
     }
 
-    public void deleteGenre(Long id) {
-        genreRepository.deleteById(id);
+    public String deleteGenre(String genre) {
+        Long genreId = null;
+        try {
+            genreId = genreRepository.findByName(genre).getId();
+            genreRepository.deleteById(genreId);
+        } catch (Exception ex) {
+            return "Genre " + genre + " not found";
+        }
+        return "Genre " + genre + " deleted";
     }
 
 }

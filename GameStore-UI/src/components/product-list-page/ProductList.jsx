@@ -1,34 +1,42 @@
 import { ProductCard } from './ProductCard';
-import { Container, Grid2, Typography } from '@mui/material';
+import { Container, Grid2, Stack, Typography } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../global-context/AppContext';
 import { DataLoading } from './DataLoading';
 import { CategoriesFilter } from './CategoriesFilter';
+import { NameFilter } from './NameFilter';
 
 export const ProductListPage = () => {
   const { gamesData, isLoading, isError, addToBasket } = useContext(GlobalContext);
   const [filterGamesData, setFilterGamesData] = useState([]);
   const [categories, setCategories] = useState(new Set());
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedName, setSelectedName] = useState('');
+
+  const handleNameChange = (e) => {
+    setSelectedName(e.target.value);
+  };
 
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
   };
 
   useEffect(() => {
-    setFilterGamesData(gamesData);
     const filterCategories = [...new Set(gamesData.flatMap((game) => game.genres.map((genre) => genre.name)))];
     setCategories(filterCategories);
   }, [gamesData]);
 
   useEffect(() => {
+    let newArr = gamesData;
+
     if (selectedCategory) {
-      const newArr = gamesData.filter((game) => game.genres.some((genre) => genre.name.includes(selectedCategory)));
-      setFilterGamesData(newArr);
-    } else {
-      setFilterGamesData(gamesData);
+      newArr = newArr.filter((game) => game.genres.some((genre) => genre.name.includes(selectedCategory)));
     }
-  }, [selectedCategory]);
+    if (selectedName) {
+      newArr = newArr.filter((game) => game.name.includes(selectedName));
+    }
+    setFilterGamesData(newArr);
+  }, [selectedCategory, selectedName, gamesData]);
 
   if (isLoading || isError) {
     if (isLoading) {
@@ -45,7 +53,10 @@ export const ProductListPage = () => {
 
   return (
     <>
-      <CategoriesFilter categories={categories} selectedCategory={selectedCategory} onChange={handleCategoryChange} />
+      <Stack direction={'row'} alignItems={'end'}>
+        <NameFilter onChange={handleNameChange} />
+        <CategoriesFilter categories={categories} selectedCategory={selectedCategory} onChange={handleCategoryChange} />
+      </Stack>
       <Container fixed>
         <Grid2 container spacing={3}>
           {filterGamesData.map((data) => (

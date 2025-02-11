@@ -48,6 +48,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/auth/signUp","/auth/signIn", "/h2-console/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/auth/welcome").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()
                 )

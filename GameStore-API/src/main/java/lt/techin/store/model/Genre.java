@@ -20,4 +20,10 @@ public class Genre {
     @ManyToMany(mappedBy = "genres", fetch = FetchType.EAGER)
     private Set<Game> games = new HashSet<>();
 
+    @PreRemove
+    private void preRemove() {
+        for (Game g : new HashSet<>(games)) {
+            g.removeGenre(this);
+        }
+    }
 }

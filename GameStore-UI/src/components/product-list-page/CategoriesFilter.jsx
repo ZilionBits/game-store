@@ -7,7 +7,7 @@ export const CategoriesFilter = ({ categories, selectedCategory, onChange }) => 
       <FormControl fullWidth>
         <InputLabel id="cat-label">Category</InputLabel>
         <Select id="cat-select" value={selectedCategory} label="Category" labelId="cat-label" onChange={onChange}>
-            <MenuItem value={''}>All</MenuItem>
+            <MenuItem value={''}>None</MenuItem>
           {[...categories].map((cat) => (
             <MenuItem key={cat} value={cat}>
               {cat}

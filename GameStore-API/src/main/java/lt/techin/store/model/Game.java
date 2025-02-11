@@ -31,5 +31,9 @@ public class Game {
     )
     private Set<Genre> genres = new HashSet<>();
 
+    public void removeGenre(Genre genre) {
+        this.genres.remove(genre);
+        genre.getGames().remove(this);
+    }
 
 }

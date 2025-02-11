@@ -1,9 +1,11 @@
 import { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { removeGenreByName } from './EntitiesApi';
+import { useUserAuth } from '../authorization/UserAuth';
 
-// const GAMESAPI = 'http://localhost:8080/api/v1';
+// const MAINAPI = 'http://localhost:8080/api/v1';
 
-const GAMESAPI = 'https://game-store-api-h91p.onrender.com/api/v1';
+const MAINAPI = 'https://game-store-api-h91p.onrender.com/api/v1';
 
 export const GlobalContext = createContext();
 
@@ -13,6 +15,7 @@ const AppContext = ({ children }) => {
   const [gamesData, setGamesData] = useState([]);
   const [basketItems, setBasketItems] = useState(new Set());
   const [itemsCount, setItemsCount] = useState(0);
+  const { token } = useUserAuth();
 
   useEffect(() => {
     let cancel = false;
@@ -21,7 +24,7 @@ const AppContext = ({ children }) => {
       setIsLoading(true);
       setIsError(false);
       try {
-        const response = await axios(`${GAMESAPI}`);
+        const response = await axios(`${MAINAPI}`);
         if (!cancel) setGamesData(response.data);
       } catch (error) {
         if (!cancel) setIsError(true);
@@ -62,12 +65,22 @@ const AppContext = ({ children }) => {
     });
   };
 
+  const removeGenre = async (genre) => {
+    try {
+      const response = await removeGenreByName(MAINAPI, genre, token);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const globalData = {
     itemsCount,
     addToBasket,
     setBasketItems,
     basketItems,
     removeBasketItem,
+    removeGenre,
     gamesData,
     isLoading,
     isError,
