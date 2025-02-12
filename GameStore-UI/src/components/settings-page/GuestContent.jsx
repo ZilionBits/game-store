@@ -20,7 +20,7 @@ export const GuestContent = () => {
         </Button>
       </Stack>
       <Divider sx={{ margin: '1rem' }} />
-      <Typography variant="h3" textAlign={'center'}>
+      <Typography variant='subtitle1' textAlign={'center'}>
         For more settings please <Link to="/signup">Sign Up</Link> or <Link to="/signin">Sign In</Link>
       </Typography>
     </CardContent>

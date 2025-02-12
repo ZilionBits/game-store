@@ -5,6 +5,7 @@ import lt.techin.store.model.Game;
 import lt.techin.store.model.Genre;
 import lt.techin.store.model.Platform;
 import lt.techin.store.repository.GameRepository;
+import lt.techin.store.repository.GenreRepository;
 import lt.techin.store.service.GenreService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -16,21 +17,47 @@ import java.util.Set;
 @Component
 public class InitialGamesGenres implements CommandLineRunner {
 
-    private GenreService genreService;
+    private GenreRepository genreRepository;
     private GameRepository gameRepository;
 
     @Override
     public void run(String... args) throws Exception {
 
-        Genre action = genreService.addGenre("Action");
-        Genre adventure = genreService.addGenre("Adventure");
-        Genre shooter = genreService.addGenre("Shooter");
-        Genre multiplayer = genreService.addGenre("Multiplayer");
-        Genre horror = genreService.addGenre("Horror");
-        Genre storyRich = genreService.addGenre("Story-rich");
-        Genre sciFi = genreService.addGenre("Sci-Fi");
-        Genre coOp = genreService.addGenre("Co-op");
-        Genre cartoonish = genreService.addGenre("Cartoonish");
+        Genre action = new Genre();
+        action.setName("Action");
+        genreRepository.save(action);
+
+        Genre adventure = new Genre();
+        adventure.setName("Adventure");
+        genreRepository.save(adventure);
+
+        Genre shooter = new Genre();
+        shooter.setName("Shooter");
+        genreRepository.save(shooter);
+
+        Genre multiplayer = new Genre();
+        multiplayer.setName("Multiplayer");
+        genreRepository.save(multiplayer);
+
+        Genre horror = new Genre();
+        horror.setName("Horror");
+        genreRepository.save(horror);
+
+        Genre storyRich = new Genre();
+        storyRich.setName("Story-rich");
+        genreRepository.save(storyRich);
+
+        Genre sciFi = new Genre();
+        sciFi.setName("Sci-Fi");
+        genreRepository.save(sciFi);
+
+        Genre coOp = new Genre();
+        coOp.setName("Co-op");
+        genreRepository.save(coOp);
+
+        Genre cartoonish = new Genre();
+        cartoonish.setName("Cartoonish");
+        genreRepository.save(cartoonish);
 
         // Grand Theft Auto V
         Game gtaV = new Game();

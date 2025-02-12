@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -32,6 +33,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableMethodSecurity
 public class SecurityConfig {
 
+    static final String ADMIN = "ROLE_ADMIN";
     @Autowired
     private JwtAuthFilter jwtAuthFilter;
 
@@ -48,8 +50,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/auth/signUp","/auth/signIn", "/h2-console/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1").permitAll()
-                        .requestMatchers(HttpMethod.DELETE, "/api/v1").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers("/auth/welcome").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/**").hasAuthority(ADMIN)
+                        .requestMatchers(HttpMethod.POST, "/api/v1/**").hasAuthority(ADMIN)
+                        .requestMatchers("/auth/welcome").hasAuthority(ADMIN)
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))

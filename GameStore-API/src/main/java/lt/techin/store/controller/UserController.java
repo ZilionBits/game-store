@@ -1,7 +1,6 @@
 package lt.techin.store.controller;
 
 import lombok.AllArgsConstructor;
-import lt.techin.store.model.User;
 import lt.techin.store.rest.SignInUserRequest;
 import lt.techin.store.rest.SignUpUserRequest;
 import lt.techin.store.service.JwtService;
@@ -28,7 +27,7 @@ public class UserController {
 
     @GetMapping("/welcome")
     public String welcome() {
-        return "Welcome from secured Admin only back end page!";
+        return "Welcome from secured back-end Admin only message!";
     }
 
     @PostMapping("/signUp")

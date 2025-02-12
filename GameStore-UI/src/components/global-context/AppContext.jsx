@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { removeGenreByName } from './EntitiesApi';
+import { addGenreByName, removeGenreByName } from './EntitiesApi';
 import { useUserAuth } from '../authorization/UserAuth';
 
 // const MAINAPI = 'http://localhost:8080/api/v1';
@@ -13,6 +13,7 @@ const AppContext = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [gamesData, setGamesData] = useState([]);
+  const [genresData, setGenresData] = useState([]);
   const [basketItems, setBasketItems] = useState(new Set());
   const [itemsCount, setItemsCount] = useState(0);
   const { token } = useUserAuth();
@@ -38,6 +39,17 @@ const AppContext = ({ children }) => {
       cancel = true;
     };
   }, []);
+
+  useEffect(() => {
+    const fetchGenres = async () => {
+      const response = await axios(`${MAINAPI}/genres`, { headers: { Authorization: `Bearer ${token}` } });
+      setGenresData(response.data);
+    };
+
+    if (token) {
+      fetchGenres();
+    }
+  }, [token]);
 
   useEffect(() => {
     let count = basketItems.size;
@@ -74,6 +86,15 @@ const AppContext = ({ children }) => {
     }
   };
 
+  const addGenre = async (genre) => {
+    try {
+      const response = await addGenreByName(MAINAPI, genre, token);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const globalData = {
     itemsCount,
     addToBasket,
@@ -81,7 +102,9 @@ const AppContext = ({ children }) => {
     basketItems,
     removeBasketItem,
     removeGenre,
+    addGenre,
     gamesData,
+    genresData,
     isLoading,
     isError,
   };
