@@ -49,7 +49,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/auth/signUp","/auth/signIn", "/h2-console/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/**").hasAuthority(ADMIN)
                         .requestMatchers(HttpMethod.POST, "/api/v1/**").hasAuthority(ADMIN)
                         .requestMatchers("/auth/welcome").hasAuthority(ADMIN)

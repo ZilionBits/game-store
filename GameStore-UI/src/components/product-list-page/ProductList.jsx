@@ -5,13 +5,17 @@ import { GlobalContext } from '../global-context/AppContext';
 import { DataLoading } from './DataLoading';
 import { CategoriesFilter } from './CategoriesFilter';
 import { NameFilter } from './NameFilter';
+import { PlatformsFilter } from './PlatformsFilter';
+import { useUserAuth } from '../authorization/UserAuth';
 
 export const ProductListPage = () => {
-  const { gamesData, isLoading, isError, addToBasket } = useContext(GlobalContext);
+  const { gamesData, isLoading, isError, addToBasket, platformsData } = useContext(GlobalContext);
+  const { user } = useUserAuth();
   const [filterGamesData, setFilterGamesData] = useState([]);
   const [categories, setCategories] = useState(new Set());
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedName, setSelectedName] = useState('');
+  const [selectedPlatform, setSelectedPlatform] = useState('');
 
   const handleNameChange = (e) => {
     setSelectedName(e.target.value);
@@ -19,6 +23,10 @@ export const ProductListPage = () => {
 
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
+  };
+
+  const handlePlatformChange = (e) => {
+    setSelectedPlatform(e.target.value);
   };
 
   useEffect(() => {
@@ -35,8 +43,15 @@ export const ProductListPage = () => {
     if (selectedName) {
       newArr = newArr.filter((game) => game.name.includes(selectedName));
     }
+    if (selectedPlatform) {
+      newArr = newArr.filter((game) => game.platforms.includes(selectedPlatform));
+    }
     setFilterGamesData(newArr);
-  }, [selectedCategory, selectedName, gamesData]);
+  }, [selectedCategory, selectedName, selectedPlatform, gamesData]);
+
+  const deleteGame = () => {
+    
+  }
 
   if (isLoading || isError) {
     if (isLoading) {
@@ -53,15 +68,26 @@ export const ProductListPage = () => {
 
   return (
     <>
-      <Stack direction={'row'} alignItems={'end'}>
+      <Stack direction={{ sm: 'row' }}>
         <NameFilter onChange={handleNameChange} />
-        <CategoriesFilter categories={categories} selectedCategory={selectedCategory} onChange={handleCategoryChange} />
+        <Stack direction={{ xs: 'row' }}>
+          <CategoriesFilter
+            categories={categories}
+            selectedCategory={selectedCategory}
+            onChange={handleCategoryChange}
+          />
+          <PlatformsFilter
+            platforms={platformsData}
+            selectedPlatform={selectedPlatform}
+            onChange={handlePlatformChange}
+          />
+        </Stack>
       </Stack>
       <Container fixed>
         <Grid2 container spacing={3}>
           {filterGamesData.map((data) => (
             <Grid2
-              key={data.name}
+              key={data.id}
               size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
               sx={{ display: 'flex', justifyContent: 'center' }}
             >
@@ -73,6 +99,7 @@ export const ProductListPage = () => {
                 price={data.price}
                 genres={data.genres.map((genre) => genre.name).join(' ')}
                 addToBasket={() => addToBasket(data.id)}
+                user={user}
               />
             </Grid2>
           ))}

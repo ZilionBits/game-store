@@ -149,8 +149,8 @@ export const ModifyCategories = ({ handleClose }) => {
         <Grid2 size={6}>
           <Box sx={{ minWidth: '150px', margin: '10px' }}>
             <FormControl fullWidth>
-              <InputLabel htmlFor="add-genre">Category</InputLabel>
-              <Input id="add-genre" type="text" value={inputCategory} onChange={handleCatAddChange} />
+              <InputLabel>Category</InputLabel>
+              <Input autoComplete="off" type="text" value={inputCategory} onChange={handleCatAddChange} />
               <FormHelperText error={Boolean(catAddError)}>{catAddError}</FormHelperText>
             </FormControl>
           </Box>
@@ -163,7 +163,9 @@ export const ModifyCategories = ({ handleClose }) => {
               <>
                 <Typography variant="overline">Are you sure about adding the inputted category?</Typography>
                 <Box justifyContent={'space-between'} display={'flex'}>
-                  <Button disabled={Boolean(catAddError)} onClick={handleCatAddPopClick}>Yes</Button>
+                  <Button disabled={Boolean(catAddError)} onClick={handleCatAddPopClick}>
+                    Yes
+                  </Button>
                   <Button
                     onClick={() => {
                       setInputCategory('');

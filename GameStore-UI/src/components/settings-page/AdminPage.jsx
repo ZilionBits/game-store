@@ -1,7 +1,9 @@
-import { CardContent, Typography, Button, Modal, Box } from '@mui/material';
+import { CardContent, Typography, Button, Modal, Box, Stack } from '@mui/material';
 import { useUserAuth } from '../authorization/UserAuth';
 import { useState } from 'react';
 import { ModifyCategories } from './admin-functions/ModifyCategories';
+import { ModifyGames } from './admin-functions/ModifyGames';
+import { ModifyUsers } from './admin-functions/ModifyUsers';
 
 const style = {
   margin: '10vh auto',
@@ -15,24 +17,33 @@ const style = {
 };
 
 export const AdminPage = () => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [openModal, setOpenModal] = useState(null);
+  const handleOpenCategory = () => setOpenModal('Category');
+  const handleOpenGame = () => setOpenModal('Game');
+  const handleOpenUser = () => setOpenModal('User');
+  const handleClose = () => setOpenModal(null);
+
   const { adminMessage } = useUserAuth();
 
   return (
     <CardContent>
-      <Typography>{adminMessage}</Typography>
-      <Button onClick={handleOpen}>Modify categories</Button>
+      <Typography textAlign="center">{adminMessage}</Typography>
+      <Stack direction="row" justifyContent="space-between" sx={{ margin: '10px 0px' }}>
+        <Button onClick={handleOpenCategory}>Modify categories</Button>
+        <Button onClick={handleOpenGame}>Modify games</Button>
+        <Button onClick={handleOpenUser}>Modify users</Button>
+      </Stack>
       <Modal
-        open={open}
+        open={Boolean(openModal)}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         disableScrollLock
       >
         <Box sx={style}>
-          <ModifyCategories handleClose={handleClose}/>
+          {openModal === 'Category' && <ModifyCategories handleClose={handleClose} />}
+          {openModal === 'Game' && <ModifyGames handleClose={handleClose}/>}
+          {openModal === 'User' && <ModifyUsers />}
         </Box>
       </Modal>
     </CardContent>

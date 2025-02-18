@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { addGenreByName, removeGenreByName } from './EntitiesApi';
+import { addGameByForm, addGenreByName, removeGenreByName } from './EntitiesApi';
 import { useUserAuth } from '../authorization/UserAuth';
 
 // const MAINAPI = 'http://localhost:8080/api/v1';
@@ -14,6 +14,7 @@ const AppContext = ({ children }) => {
   const [isError, setIsError] = useState(false);
   const [gamesData, setGamesData] = useState([]);
   const [genresData, setGenresData] = useState([]);
+  const [platformsData, setPlatformsData] = useState([]);
   const [basketItems, setBasketItems] = useState(new Set());
   const [itemsCount, setItemsCount] = useState(0);
   const { token } = useUserAuth();
@@ -42,14 +43,17 @@ const AppContext = ({ children }) => {
 
   useEffect(() => {
     const fetchGenres = async () => {
-      const response = await axios(`${MAINAPI}/genres`, { headers: { Authorization: `Bearer ${token}` } });
+      const response = await axios(`${MAINAPI}/genres`);
       setGenresData(response.data);
     };
+    fetchGenres();
 
-    if (token) {
-      fetchGenres();
-    }
-  }, [token]);
+    const fetchPlatforms = async () => {
+      const response = await axios(`${MAINAPI}/platforms`);
+      setPlatformsData(response.data);
+    };
+    fetchPlatforms();
+  }, []);
 
   useEffect(() => {
     let count = basketItems.size;
@@ -95,6 +99,15 @@ const AppContext = ({ children }) => {
     }
   };
 
+  const addGame = async (gameAddForm) => {
+    try {
+      const response = await addGameByForm(MAINAPI, gameAddForm, token);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const globalData = {
     itemsCount,
     addToBasket,
@@ -104,7 +117,9 @@ const AppContext = ({ children }) => {
     removeGenre,
     addGenre,
     gamesData,
+    addGame,
     genresData,
+    platformsData,
     isLoading,
     isError,
   };

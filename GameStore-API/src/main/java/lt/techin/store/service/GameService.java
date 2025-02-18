@@ -38,10 +38,11 @@ public class GameService {
         newGame.setPrice(gameDto.getPrice());
         newGame.setPlatforms(gameDto.getPlatforms());
 
-        Set<Long> genresId = gameDto.getGenres().stream().map(GenreDto::getId).collect(Collectors.toSet());
+        Set<String> dtoGenresName = gameDto.getGenres().stream().map(GenreDto::getName).collect(Collectors.toSet());
 
         Set<Genre> genres = genreRepository.findAll().stream()
-                .filter(genre -> genresId.contains(genre.getId())).collect(Collectors.toSet());
+                .filter(genre -> dtoGenresName.contains(genre.getName()))
+                .collect(Collectors.toSet());
         newGame.setGenres(genres);
 
         gameRepository.save(newGame);

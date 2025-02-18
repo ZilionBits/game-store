@@ -21,3 +21,14 @@ export const addGenreByName = async (mainApi, genre, token) => {
     throw error;
   }
 }
+
+export const addGameByForm = async (mainApi, gameAddForm, token) => {
+  try {
+    const response = await axios.post(mainApi, gameAddForm, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}

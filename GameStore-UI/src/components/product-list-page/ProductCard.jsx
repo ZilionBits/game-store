@@ -11,9 +11,10 @@ import {
 } from '@mui/material';
 import { BuyClick } from '../buy-click/BuyClick';
 import { useState } from 'react';
+import { Delete } from '@mui/icons-material';
 
 export const ProductCard = (props) => {
-  const { name, platforms, metascore, image_url, price, genres, addToBasket } = props;
+  const { name, platforms, metascore, image_url, price, genres, addToBasket, deleteGame, user } = props;
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -29,7 +30,8 @@ export const ProductCard = (props) => {
   return (
     <Card
       sx={{
-        width: '90vw',
+        width: '100%',
+        position: 'relative',
       }}
     >
       <CardActionArea>
@@ -44,7 +46,7 @@ export const ProductCard = (props) => {
                 Genre: {genres}
               </Typography>
               <Typography sx={{ textAlign: 'end', marginRight: '8px' }}>
-                {price !== 0 ? `${price} €` : 'Free-to-play'}
+                {price != 0 ? `${price} €` : 'Free-to-play'}
               </Typography>
             </CardContent>
           </Grid2>
@@ -54,7 +56,13 @@ export const ProductCard = (props) => {
         <Button onClick={addToBasket}>Add to basket</Button>
         <Button onClick={handleClick}>Buy now</Button>
       </CardActions>
-      <BuyClick anchorEl={anchorEl} handleClose={handleClose} gameName={name}/>
+      <BuyClick anchorEl={anchorEl} handleClose={handleClose} gameName={name} />
+      {user?.roles === 'ADMIN' && (
+        <Delete
+          sx={{ position: 'absolute', zIndex: 1, top: 5, right: 5, cursor: 'not-allowed' }}
+          onClick={deleteGame}
+        />
+      )}
     </Card>
   );
 };

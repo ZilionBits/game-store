@@ -3,9 +3,11 @@ package lt.techin.store.model.converter;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 import lt.techin.store.model.Platform;
+import org.springframework.stereotype.Component;
 
 import java.util.stream.Stream;
 
+@Component
 @Converter(autoApply = true)
 public class PlatformConverter implements AttributeConverter<Platform, String> {
     @Override
