@@ -3,9 +3,9 @@ import axios from 'axios';
 import { addGameByForm, addGenreByName, deleteGameByForm, editGameByForm, removeGenreByName } from './EntitiesApi';
 import { useUserAuth } from '../authorization/UserAuth';
 
-const MAINAPI = 'http://localhost:8080/api/v1';
+// const MAINAPI = 'http://localhost:8080/api/v1';
 
-// const MAINAPI = 'https://game-store-api-h91p.onrender.com/api/v1';
+const MAINAPI = 'https://game-store-api-h91p.onrender.com/api/v1';
 
 export const GlobalContext = createContext();
 
