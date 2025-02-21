@@ -42,7 +42,7 @@ export const AdminPage = () => {
       >
         <Box sx={style}>
           {openModal === 'Category' && <ModifyCategories handleClose={handleClose} />}
-          {openModal === 'Game' && <ModifyGames handleClose={handleClose}/>}
+          {openModal === 'Game' && <ModifyGames handleClose={handleClose} />}
           {openModal === 'User' && <ModifyUsers />}
         </Box>
       </Modal>

@@ -36,4 +36,9 @@ public class Game {
         genre.getGames().remove(this);
     }
 
+    @PreRemove
+    public void preRemove() {
+        this.genres.clear();
+    }
+
 }

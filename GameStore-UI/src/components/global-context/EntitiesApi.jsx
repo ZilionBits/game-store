@@ -20,7 +20,7 @@ export const addGenreByName = async (mainApi, genre, token) => {
   } catch (error) {
     throw error;
   }
-}
+};
 
 export const addGameByForm = async (mainApi, gameAddForm, token) => {
   try {
@@ -31,4 +31,27 @@ export const addGameByForm = async (mainApi, gameAddForm, token) => {
   } catch (error) {
     throw error;
   }
-}
+};
+
+export const deleteGameByForm = async (mainApi, gameData, token) => {
+  try {
+    const response = await axios.delete(mainApi, {
+      headers: { Authorization: `Bearer ${token}` },
+      data: gameData,
+    });
+    return console.log(response.data);
+  } catch (error) {
+    console.log(error.response.data);
+  }
+};
+
+export const editGameByForm = async (mainApi, gameAddForm, token) => {
+  try {
+    const response = await axios.put(mainApi, gameAddForm, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return console.log(response.data);
+  } catch (error) {
+    console.log(error.response.data);
+  }
+};

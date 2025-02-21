@@ -1,5 +1,14 @@
+import { Construction } from '@mui/icons-material';
+import { Box, Typography } from '@mui/material';
+
 export const ModifyUsers = () => {
-    return (
-        <h1>Hello user!</h1>
-    )
-}
+  return (
+    <Box>
+      <Typography align="center" variant="h4" color="info">
+        <Construction fontSize="large" />
+        Under development.
+        <Construction fontSize="large" />
+      </Typography>
+    </Box>
+  );
+};

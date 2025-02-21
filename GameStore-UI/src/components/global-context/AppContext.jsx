@@ -1,11 +1,11 @@
 import { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { addGameByForm, addGenreByName, removeGenreByName } from './EntitiesApi';
+import { addGameByForm, addGenreByName, deleteGameByForm, editGameByForm, removeGenreByName } from './EntitiesApi';
 import { useUserAuth } from '../authorization/UserAuth';
 
-// const MAINAPI = 'http://localhost:8080/api/v1';
+const MAINAPI = 'http://localhost:8080/api/v1';
 
-const MAINAPI = 'https://game-store-api-h91p.onrender.com/api/v1';
+// const MAINAPI = 'https://game-store-api-h91p.onrender.com/api/v1';
 
 export const GlobalContext = createContext();
 
@@ -108,6 +108,14 @@ const AppContext = ({ children }) => {
     }
   };
 
+  const deleteGame = async (gameData) => {
+    deleteGameByForm(MAINAPI, gameData, token);
+  };
+
+  const editGame = async (gameAddForm) => {
+    editGameByForm(MAINAPI, gameAddForm, token); 
+  }
+
   const globalData = {
     itemsCount,
     addToBasket,
@@ -118,6 +126,8 @@ const AppContext = ({ children }) => {
     addGenre,
     gamesData,
     addGame,
+    deleteGame,
+    editGame,
     genresData,
     platformsData,
     isLoading,

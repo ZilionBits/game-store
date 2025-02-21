@@ -9,7 +9,7 @@ import { PlatformsFilter } from './PlatformsFilter';
 import { useUserAuth } from '../authorization/UserAuth';
 
 export const ProductListPage = () => {
-  const { gamesData, isLoading, isError, addToBasket, platformsData } = useContext(GlobalContext);
+  const { gamesData, isLoading, isError, addToBasket, platformsData, deleteGame } = useContext(GlobalContext);
   const { user } = useUserAuth();
   const [filterGamesData, setFilterGamesData] = useState([]);
   const [categories, setCategories] = useState(new Set());
@@ -48,10 +48,6 @@ export const ProductListPage = () => {
     }
     setFilterGamesData(newArr);
   }, [selectedCategory, selectedName, selectedPlatform, gamesData]);
-
-  const deleteGame = () => {
-    
-  }
 
   if (isLoading || isError) {
     if (isLoading) {
@@ -100,6 +96,10 @@ export const ProductListPage = () => {
                 genres={data.genres.map((genre) => genre.name).join(' ')}
                 addToBasket={() => addToBasket(data.id)}
                 user={user}
+                deleteGame={() => {
+                  deleteGame(data);
+                }}
+                gameData={data}
               />
             </Grid2>
           ))}

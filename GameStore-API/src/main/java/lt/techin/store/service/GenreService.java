@@ -20,10 +20,6 @@ public class GenreService {
         return genreRepository.findAll().stream().map(GenreDto::new).toList();
     }
 
-    public Genre getGenreById(Long id) {
-        return genreRepository.findById(id).get();
-    }
-
     public String addGenre(String genre) {
         if(genreRepository.findByName(genre) != null){
             return "Genre " + genre + " already exists";
